@@ -12,7 +12,7 @@
   var database = firebase.database();
 
   // Capture Button Click
-$("#add-user").on("click", function(event) 
+$("#add-employee").on("click", function(event) 
 {
     // Don't refresh the page!
     event.preventDefault();
