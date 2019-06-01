@@ -33,3 +33,19 @@ $("#add-user").on("click", function(event)
     });  
 
 });
+
+database.ref().on("value", function(snapshot) {
+    console.log(snapshot.val());
+    console.log(snapshot.val().name);
+    console.log(snapshot.val().email);
+    console.log(snapshot.val().age);
+    console.log(snapshot.val().comment);
+
+    $("#name-display").text(snapshot.val().name);
+    $("#email-display").text(snapshot.val().email);
+    $("#age-display").text(snapshot.val().age);
+    $("#comment-display").text(snapshot.val().comment);
+  },
+  function(errorObjects){
+    console.log("Errors handled: " + errorObject.code);
+  });
