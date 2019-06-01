@@ -12,16 +12,16 @@
   var database = firebase.database();
 
   // Capture Button Click
-$("#add-user").on("click", function(event) 
+$("#add-employee").on("click", function(event) 
 {
     // Don't refresh the page!
     event.preventDefault();
 
     // Code in the logic for storing and retrieving the most recent user.
     name = $("#name-input").val().trim();
-    email = $("#email-input").val().trim();
-    age = $("#age-input").val().trim();
-    comment = $("#comment-input").val().trim();
+    role = $("#role-input").val().trim();
+    start = $("#startDate-input").val().trim();
+    rate = $("#rate-input").val().trim();
 
    
     // Don't forget to provide initial data to your Firebase database.
