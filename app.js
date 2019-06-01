@@ -11,6 +11,11 @@
   // Create a variable to reference the database
   var database = firebase.database();
 
+  var name = "";
+  var role = "";
+  var start = "";
+  var rate = "";
+
   // Capture Button Click
 $("#add-employee").on("click", function(event) 
 {
@@ -23,13 +28,12 @@ $("#add-employee").on("click", function(event)
     start = $("#startDate-input").val().trim();
     rate = $("#rate-input").val().trim();
 
-   
     // Don't forget to provide initial data to your Firebase database.
     database.ref().push({
       name: name,
       role: role,
       start: start,
-      rate, rate
+      rate: rate
     });  
 
 });
@@ -40,6 +44,13 @@ database.ref().on("value", function(snapshot) {
     console.log(snapshot.val().role);
     console.log(snapshot.val().start);
     console.log(snapshot.val().rate);
+
+    $("#tbody").append("<tr>");
+
+    $("#tbody").text(snapshot.val().name);
+    $("#tbody").text(snapshot.val().role);
+    $("#tbody").text(snapshot.val().start);
+    $("#tbody").text(snapshot.val().rate);
 
     $("#name-display").text(snapshot.val().name);
     $("#role-display").text(snapshot.val().role);
