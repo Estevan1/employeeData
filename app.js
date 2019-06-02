@@ -1,7 +1,7 @@
  // Initialize Firebase
  var config = {
     apiKey: "AIzaSyDvEeaB3PJdcxa2ILJhprYbeBR0HapbJF0",
-    authDomain: "fir-click-counter-7cdb9.firebaseapp.com",
+    authDomain: "time-sheet-2d40a.firebaseio.com",
     databaseURL: "https://time-sheet-2d40a.firebaseio.com/",
     storageBucket: "gs://time-sheet-2d40a.appspot.com"
   };
@@ -14,7 +14,7 @@
   var name = "";
   var role = "";
   var start = "";
-  var rate = "";
+  var rate = 0;
 
   // Capture Button Click
 $("#add-employee").on("click", function(event) 
@@ -28,34 +28,38 @@ $("#add-employee").on("click", function(event)
     start = $("#startDate-input").val().trim();
     rate = $("#rate-input").val().trim();
 
+    var employee = 
+    {
+        name: name,
+        role: role,
+        start: start,
+        rate: rate
+    }
     // Don't forget to provide initial data to your Firebase database.
-    database.ref().push({
-      name: name,
-      role: role,
-      start: start,
-      rate: rate
-    });  
-
+        database.ref().push(employee);  
 });
 
-database.ref().on("value", function(snapshot) {
+// Firebase watcher + initial loader
+database.ref().on("child_added", function(snapshot) {
+var empName = snapshot.val().name;
+console.log(empName);
     console.log(snapshot.val());
     console.log(snapshot.val().name);
     console.log(snapshot.val().role);
     console.log(snapshot.val().start);
     console.log(snapshot.val().rate);
 
-    $("#tbody").append("<tr>");
+    //$("#tbody").append("<tr>");
 
     $("#tbody").text(snapshot.val().name);
-    $("#tbody").text(snapshot.val().role);
+    $("tr").text(snapshot.val().role);
     $("#tbody").text(snapshot.val().start);
     $("#tbody").text(snapshot.val().rate);
 
-    $("#name-display").text(snapshot.val().name);
-    $("#role-display").text(snapshot.val().role);
-    $("#start-display").text(snapshot.val().start);
-    $("#rate-display").text(snapshot.val().rate);
+    //$("#name-display").text(snapshot.val().name);
+    //$("#role-display").text(snapshot.val().role);
+    //$("#start-display").text(snapshot.val().start);
+    //$("#rate-display").text(snapshot.val().rate);
   },
   function(errorObjects){
     console.log("Errors handled: " + errorObject.code);
